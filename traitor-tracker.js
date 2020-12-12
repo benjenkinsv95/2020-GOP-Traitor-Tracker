@@ -27,52 +27,119 @@ const createHouseTraitorRegex = () => {
 }
 
 
+// match any attorney general, solictor general, or deputy attorney general traitor
+// will look something like this /((Mike Johnson)|(Gary Palmer))/
+const createGeneralTraitorRegex = () => {
+    // Build regex to search for any of the traitors names https://stackoverflow.com/a/185529/3500171
+
+    const traitorRegexStr = generalTraitors
+        .map(createIndividualTraitorRegexString) // (Mike Johnson)
+        .join('|') // (Mike Johnson)|(Gary Palmer)
+
+    // wrap in parenthesis, so we can match a single traitor later and replace their name
+    return new RegExp(`((AG\\.?\\s)?(SG\\.?\\s)?(DAG\\.?\\s)?(Attorney\\sGeneral\\.?\\s)?(Deputy\\sAttorney\\sGeneral\\.?\\s)?(Solicitor\\sGeneral\\.?\\s)?${traitorRegexStr})`, 'g')
+}
+
 
 
 const houseTraitorRegex = createHouseTraitorRegex()
+const generalTraitorRegex = createGeneralTraitorRegex()
+
+
 
 $('p,h1,h2,h3,h4,h5,h6').each(function() {
     const text = $(this).text();
 
-    // find all potential traitor matches
-    const matches = text.match(houseTraitorRegex)
-
-    // if we found possible traitors
-    if (matches && matches.length > 0) {
-        console.log('matches', matches)
-        // loop through each possible traitor we matched
-        for (const match in matches) {
-            
-            let individualTraitorRegex
-            // search for the specific possible traitor we matched, so we can verify they are a traitor
-            const specificTraitor = houseRepresentativeTraitors.find(currentTraitor => {
-                individualTraitorRegex = createIndividualTraitorRegex(currentTraitor)
-                
-                const currentTraitorMatches = text.match(individualTraitorRegex)
-                // if the current traitor matches contains the potential traitor we matched, then we found the object we are looking for
+    const markHouseTraitors = (text) => {
+    	// find all potential traitor matches
+	    const matches = text.match(houseTraitorRegex)
 	
-                return currentTraitorMatches && currentTraitorMatches.length > 0
-            })
-
-          
-            if (specificTraitor) {
-            	// verify the state of the traitor and that they are a representative
-            	const verifyTraitorStateRegex = new RegExp(`(${specificTraitor.state})`, 'i')
-            	const verifyTraitorStateMatches = text.match(verifyTraitorStateRegex)
-            	
-            	const verifyTraitorJobRegex = /((Rep\\.)(Representative)(Pol\\.)(Politician))/i
-            	const verifyTraitorJobMatches = text.match(verifyTraitorJobRegex)
-            	
-            	if (verifyTraitorStateMatches && verifyTraitorStateMatches.length > 0
-            	   && verifyTraitorStateMatches && verifyTraitorStateMatches.length > 0) {
-            		$(this).html(text.replace(individualTraitorRegex, "<span class='traitor-against-america-2020'>$1, traitor against the United States of America,</span>"));
-            	}
-            	
-            }
-            
-        }
-
-
+	    // if we found possible traitors
+	    if (matches && matches.length > 0) {
+	        console.log('matches', matches)
+	        // loop through each possible traitor we matched
+	        for (const match in matches) {
+	            
+	            let individualTraitorRegex
+	            // search for the specific possible traitor we matched, so we can verify they are a traitor
+	            const specificTraitor = houseRepresentativeTraitors.find(currentTraitor => {
+	                individualTraitorRegex = createIndividualTraitorRegex(currentTraitor)
+	                
+	                const currentTraitorMatches = text.match(individualTraitorRegex)
+	                // if the current traitor matches contains the potential traitor we matched, then we found the object we are looking for
+		
+	                return currentTraitorMatches && currentTraitorMatches.length > 0
+	            })
+	
+	          
+	            if (specificTraitor) {
+	            	// verify the state of the traitor and that they are a representative
+	            	const verifyTraitorStateRegex = new RegExp(`(${specificTraitor.state})`, 'i')
+	            	const verifyTraitorStateMatches = text.match(verifyTraitorStateRegex)
+	            	
+	            	// TODO: Try adding ors between these
+	            	const verifyTraitorJobRegex = /((Rep\\.)|(Representative)|(Pol\\.)|(Politician))/i
+	            	const verifyTraitorJobMatches = text.match(verifyTraitorJobRegex)
+	            	
+	            	if (verifyTraitorStateMatches && verifyTraitorStateMatches.length > 0
+	            	   && verifyTraitorJobMatches && verifyTraitorJobMatches.length > 0) {
+	            	   	// if they are verified, mark them as a traitor.
+	            		$(this).html(text.replace(individualTraitorRegex, "<span class='traitor-against-america-2020'>$1, traitor against the United States of America,</span>"));
+	            	}
+	            	
+	            }
+	            
+	        }
+	
+	
+	    }
     }
     
+    const markGeneralTraitors = (text) => {
+    	// find all potential traitor matches
+	    const matches = text.match(generalTraitorRegex)
+	
+	    // if we found possible traitors
+	    if (matches && matches.length > 0) {
+	        console.log('matches', matches)
+	        // loop through each possible traitor we matched
+	        for (const match in matches) {
+	            
+	            let individualTraitorRegex
+	            // search for the specific possible traitor we matched, so we can verify they are a traitor
+	            const specificTraitor = generalTraitors.find(currentTraitor => {
+	                individualTraitorRegex = createIndividualTraitorRegex(currentTraitor)
+	                
+	                const currentTraitorMatches = text.match(individualTraitorRegex)
+	                // if the current traitor matches contains the potential traitor we matched, then we found the object we are looking for
+		
+	                return currentTraitorMatches && currentTraitorMatches.length > 0
+	            })
+	
+	          
+	            if (specificTraitor) {
+	            	// verify the state of the traitor and that they are a AG, DAG, or SG
+	            	const verifyTraitorStateRegex = new RegExp(`(${specificTraitor.state})`, 'i')
+	            	const verifyTraitorStateMatches = text.match(verifyTraitorStateRegex)
+	            	
+	            	const verifyTraitorJobRegex = /((AG\.?\s)|(SG\.?\s)|(DAG\.?\s)|(Attorney\sGeneral\.?\s)|(Deputy\sAttorney\sGeneral\.?\s)|(Solicitor\sGeneral\.?\s))/i
+	            	const verifyTraitorJobMatches = text.match(verifyTraitorJobRegex)
+	            	console.log(text)
+	            	
+	            	if (verifyTraitorStateMatches && verifyTraitorStateMatches.length > 0
+	            	   && verifyTraitorJobMatches && verifyTraitorJobMatches.length > 0) {
+	            	   	// if they are verified, mark them as a traitor.
+	            		$(this).html(text.replace(individualTraitorRegex, "<span class='traitor-against-america-2020'>$1, traitor against the United States of America,</span>"));
+	            	}
+	            	
+	            }
+	            
+	        }
+	
+	
+	    }
+    }
+    
+    markHouseTraitors(text)
+    markGeneralTraitors(text)
 });
