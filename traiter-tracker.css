@@ -1,0 +1,9 @@
+
+/* Add red underline, using image so copy and paste hopefully won't pick it up */
+.traitor-against-america-2020 {
+  color: red;
+  -webkit-text-decoration-style: wavy;
+  -moz-text-decoration-style: wavy;
+  text-decoration-style: wavy;
+  text-decoration: underline;
+}
