@@ -2,7 +2,7 @@
   "name": "2020 GOP Traitor Tracker",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "The 2020 GOP Traitor Tracker attemps to highlight any of the traitors who tried to throw out the votes of 4 U.S. states. If you are unfamiliar with their treason, here is a master list of articles covering it: https://www.reddit.com/r/politics/comments/kbeahp/megathread_us_supreme_court_rules_on_texas_v/",
+  "description": "Keep track of the 2020 GOP traitors that attempted to overturn the election.",
   "homepage_url": "https://github.com/benjenkinsv95/2020-GOP-Traitor-Tracker",
   "icons": {
     "16": "icons/icon16.png",
