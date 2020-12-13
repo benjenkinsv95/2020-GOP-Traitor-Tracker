@@ -1,0 +1,14 @@
+/* Add red underline, using image so copy and paste hopefully won't pick it up */
+.traitor-against-america-2020 {
+    color: red!important;
+    -webkit-text-decoration-style: wavy!important;
+    -moz-text-decoration-style: wavy!important;
+    text-decoration-style: wavy!important;
+    text-decoration: underline!important;
+    text-overflow: ellipsis!important;
+  }
+  
+  .traitor-against-america-2020::after {
+    content: " - You're friendly reminder this is a traitor to the United States.";
+    text-overflow: ellipsis!important;
+  }
