@@ -159,20 +159,25 @@ const anyTraitorRegex = createAnyTraitorRegex()
 
 
 const buildTraitorObjects = (node) => {
-	const text = node.text()
+	const numWords = node.text().split(/\s+/).length
+	
+	// Only highlight if it's rather specific, like a paragraph.
+	if (numWords < 75) {
+		const text = node.text()
 
-	// search for the specific possible traitor we matched, so we can verify they are a traitor
-	const specificTraitor = allTraitors.find(currentTraitor => {
-		const individualTraitorRegex = traitorToIndividualRegex.get(currentTraitor)
-		
-		const currentTraitorMatches = text.match(individualTraitorRegex)
-		// if the current traitor matches contains the potential traitor we matched, then we found the object we are looking for
-		return currentTraitorMatches && currentTraitorMatches.length > 0
-	})
-
-	if (specificTraitor && !verifiedTraitors.has(specificTraitor)) {
-		console.log('add to verified traitors', specificTraitor)
-		verifiedTraitors.add(specificTraitor)
+		// search for the specific possible traitor we matched, so we can verify they are a traitor
+		const specificTraitor = allTraitors.find(currentTraitor => {
+			const individualTraitorRegex = traitorToIndividualRegex.get(currentTraitor)
+			
+			const currentTraitorMatches = text.match(individualTraitorRegex)
+			// if the current traitor matches contains the potential traitor we matched, then we found the object we are looking for
+			return currentTraitorMatches && currentTraitorMatches.length > 0
+		})
+	
+		if (specificTraitor && !verifiedTraitors.has(specificTraitor)) {
+			console.log('add to verified traitors', specificTraitor)
+			verifiedTraitors.add(specificTraitor)
+		}
 	}
 }
 
@@ -215,7 +220,7 @@ const markNewContent = function(mutationsList, observer) {
 	getInnerMostTraitorElements('body', looseVerifiedTraitorsCssSelector)
 		.each(function() {
 			console.log('process')
-		processNode($(this))
+			processNode($(this))
 	})
 };
 
@@ -239,7 +244,7 @@ chrome.extension.sendMessage({}, function(response) {
 			// Now look for only the verified traitors
 			getInnerMostTraitorElements('body', looseVerifiedTraitorsCssSelector)
 			  .each(function() {
-				  console.log('process')
+			    console.log('process')
 				processNode($(this))
 			})
 			
