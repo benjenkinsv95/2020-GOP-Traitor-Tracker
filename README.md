@@ -1,16 +1,17 @@
 # 2020-GOP-Traitor-Tracker
 
-An extension that keeps track of the traitors that tried to overthrow the 2020 election by disenfranchising the voters of 4 entire states. 
+![Running on twitter](screenshots/twitter.png)
 
-Currently the extension is under review, but if you'd like to use it I have uploaded it here. [`2020-GOP-Traitor-Tracker.zip`](2020-GOP-Traitor-Tracker.zip)
+A chrome extension that keeps track of the traitors that tried to overthrow the 2020 election by disenfranchising the voters of 4 entire states. 
 
-[Here are some shorts steps](https://ui.vision/howto/install-chrome-extension-from-file) for setting it up.
+[Add Traitor Tracker Extension to Chrome](https://chrome.google.com/webstore/detail/2020-gop-traitor-tracker/jdpnnegmhlhcnncffifoapcnahhbnnne/related?hl=en) 
 
 ## Examples
 
-![](https://i.imgur.com/MR5n9I1.png)
+![Running on wikipedia](screenshots/wiki.png)
 
-![](https://i.imgur.com/TC4xiHw.png)
+![Running on google](screenshots/google.png)
 
-![](https://i.imgur.com/Ja8HFto.png)
+![Running on buzzfeed](screenshots/buzzfeed.png)
 
+![Running on a news site](screenshots/news.png)
