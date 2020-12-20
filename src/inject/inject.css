@@ -1,20 +1,22 @@
 /* Add red underline, using image so copy and paste hopefully won't pick it up */
 .traitor-against-america-2020 {
-    color: #ff6961!important;
+    /* color: #ff6961!important; */
     -webkit-text-decoration-style: wavy!important;
     -moz-text-decoration-style: wavy!important;
-    text-decoration-style: wavy!important;
-    text-decoration: underline!important;
+    
+    text-decoration: underline solid red!important;
+    /* text-decoration-style: wavy!important;
+    text-decoration-color: red; */
     text-overflow: ellipsis!important;
   }
   
   .traitor-against-america-2020::after {
-    content: " - American Traitor";
+    /* content: " - American Traitor";
     text-overflow: ellipsis!important;
     color: red!important;
     -webkit-text-decoration-style: wavy!important;
     -moz-text-decoration-style: wavy!important;
     text-decoration-style: wavy!important;
     text-decoration: underline!important;
-    font-weight: 900!important;
+    font-weight: 900!important; */
   }
